@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Terminal</title>
+<style>
+  body { margin: 0; background-color: #000; color: #0f0; font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; overflow: hidden; }
+  #terminal { padding: 15px; height: 100vh; box-sizing: border-box; overflow-y: auto; scrollbar-width: none; }
+  #terminal::-webkit-scrollbar { display: none; }
+  .line { white-space: pre-wrap; word-break: break-all; line-height: 1.5; opacity: 0; animation: fadeIn 0.3s forwards; }
+  @keyframes fadeIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+<div id="terminal"></div>
+<script>
+  const terminal = document.getElementById('terminal');
+  const logs = [
+    "[INFO] Initializing AI core...",
+    "[OK] Model loaded: DeepSeek-v4",
+    "[INFO] Connecting to GitHub...",
+    "[OK] Connection established.",
+    "[INFO] Running diagnostics...",
+    "[WARN] GPU memory usage: 78%",
+    "[OK] All systems operational.",
+    "[INFO] Loading module: colab_runner",
+    "[OK] Module loaded successfully.",
+    "[INFO] Scanning for vulnerabilities...",
+    "[OK] No threats detected.",
+    "[INFO] Fetching latest models...",
+    "[OK] 12 new models available.",
+    "[INFO] System time synchronized.",
+    "[OK] Ready for deployment.",
+    "[INFO] Monitoring network traffic...",
+    "[INFO] Traffic: 1.2 GB/s",
+    "[OK] Network stable.",
+    "[INFO] Core temperature: 42°C",
+    "[OK] Cooling system nominal."
+  ];
+  let index = 0;
+  function addLine() {
+    const line = document.createElement('div');
+    line.className = 'line';
+    line.textContent = logs[index % logs.length];
+    if (index % 5 === 0) line.style.color = '#0ff';
+    if (index % 7 === 0) line.style.color = '#f0f';
+    terminal.appendChild(line);
+    if (terminal.children.length > 12) { terminal.removeChild(terminal.firstChild); }
+    terminal.scrollTop = terminal.scrollHeight;
+    index++;
+  }
+  setInterval(addLine, 300);
+</script>
+</body>
+</html>
